@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAdminUser
 
 from .models import Product, Category
 from .serializers import ProductSerializer, CategorySerializer
@@ -12,7 +12,7 @@ class BaseAPIView(generics.GenericAPIView):
     Base API view class that enforces authentication using the IsAuthenticated permission.
     """
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
 
 class CategoryListView(BaseAPIView, generics.ListCreateAPIView):

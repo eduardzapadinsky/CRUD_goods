@@ -8,12 +8,15 @@ from .serializers import UserSerializer, TokenSerializer
 
 class UserCreateView(generics.CreateAPIView):
     """
-    This view allows users to register by providing a username and password.
+    This endpoint allows anyone to create a new user account. The new user will be assigned the `is_staff` permission.
     """
 
     permission_classes = [AllowAny]
     queryset = UserModel.objects.all()
     serializer_class = UserSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(is_staff=True)
 
 
 class LoginView(TokenViewBase):
