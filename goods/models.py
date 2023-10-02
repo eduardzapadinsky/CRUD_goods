@@ -11,7 +11,7 @@ class Category(models.Model):
 class Product(models.Model):
     name = models.CharField(max_length=255)
     photo = models.URLField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL)
     offer_of_the_month = models.BooleanField(default=False)
     availability = models.BooleanField(default=False)
     pickup = models.BooleanField(default=False)
