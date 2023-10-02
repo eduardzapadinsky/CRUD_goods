@@ -9,7 +9,7 @@ from .serializers import ProductSerializer, CategorySerializer
 
 class BaseAPIView(generics.GenericAPIView):
     """
-    Base API view class that enforces authentication using the IsAuthenticated permission.
+    Base API view class that enforces authentication using the IsAdminUser permission.
     """
 
     permission_classes = [IsAdminUser]
