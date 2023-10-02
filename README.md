@@ -1,31 +1,14 @@
-# CRUD_goods Project
+# CRUD Goods
 
-CRUD_goods is a Django-based web application for managing and displaying product information. This project includes
-features such as user registration, product management, and API endpoints for interacting with product data.
+CRUD Goods is a Django-based web application for managing product listings with support for nested descriptions.
 
 ## Features
 
-- User Registration: Users can sign up for accounts to access the system.
-- Product Management: Add, view, edit, and delete product information, including name, category, price, and more.
-- Product Categories: Organize products into categories.
-- API Endpoints: Access product and category data via RESTful API endpoints.
-- User Authentication: Secure user authentication using Django's authentication system.
-- Token-Based Authentication: Authenticate API requests using token-based authentication.
+- Create, read, update, and delete products.
+- Organize products by categories.
+- Filter products by various criteria such as "Offer of the Month," "Availability," and "Pickup."
 
-## Getting Started
-
-These instructions will help you set up the project on your local machine for development and testing purposes.
-
-### Prerequisites
-
-Before you begin, ensure you have the following requirements installed:
-
-- Python (3.x recommended)
-- Django
-- Django Rest Framework
-- Other project-specific dependencies (specified in `requirements.txt`)
-
-### Installation
+## Installation
 
 1. Clone the repository:
 
@@ -33,60 +16,49 @@ Before you begin, ensure you have the following requirements installed:
    git clone https://github.com/eduardzapadinsky/CRUD_goods.git
    ```
 
-2. Navigate to the project directory:
-
-   ```bash
-   cd CRUD_goods
-   ```
-
-3. Create a virtual environment (optional but recommended):
+2. Create and activate a virtual environment:
 
    ```bash
    python -m venv venv
+   source venv/bin/activate  # On Windows, use 'venv\Scripts\activate'
    ```
 
-4. Activate the virtual environment:
-
-    - On Windows:
-
-      ```bash
-      venv\Scripts\activate
-      ```
-
-    - On macOS and Linux:
-
-      ```bash
-      source venv/bin/activate
-      ```
-
-5. Install project dependencies:
+3. Install dependencies:
 
    ```bash
    pip install -r requirements.txt
    ```
 
-6. Apply database migrations:
+4. Migrate the database:
 
    ```bash
+   python manage.py makemigrations
    python manage.py migrate
    ```
 
-7. Create a superuser account (for admin access):
-
-   ```bash
-   python manage.py createsuperuser
-   ```
-
-8. Start the development server:
+5. Run the development server:
 
    ```bash
    python manage.py runserver
    ```
 
+## API Endpoints
+
+- `/api/goods/categories/`: List and create product categories.
+- `/api/goods/categories/<int:pk>/`: Retrieve, update, and delete a specific category.
+- `/api/goods/goods/`: List and create products with support for nested descriptions.
+- `/api/goods/goods/<int:pk>/`: Retrieve, update, and delete a specific product.
+- `/api/goods/goods/category/<str:category>/`: List products by category.
+- `/api/goods/goods/offer-of-the-month/`: List products with "Offer of the Month."
+- `/api/goods/goods/availability/`: List available products.
+- `/api/goods/goods/pickup/`: List products available for pickup.
+
 ## Usage
 
 - Visit the admin interface to manage products, categories, and user accounts.
 - Access the API endpoints at `http://localhost:8000/api/` to interact with product and category data via API calls.
+
+
 
 
 
