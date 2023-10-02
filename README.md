@@ -60,6 +60,29 @@ CRUD Goods is a Django-based web application for managing product listings with 
 ## Usage
 
 - Access the API endpoints at `http://localhost:8000/api/` to interact with product and category data via API calls.
+- ## Usage
+
+### Create a New Product
+
+To create a new product, send a POST request to the `/api/goods/goods/` endpoint with the following JSON data as the request body:
+
+```json
+{
+    "category": {
+        "category_name": "Cats"
+    },
+    "name": "Cat 1",
+    "photo": "https://loremflickr.com/320/240/",
+    "offer_of_the_month": true,
+    "availability": false,
+    "pickup": true,
+    "price": "434.00",
+    "description": [
+        "Description 01",
+        "Description 02"
+    ]
+}
+```
 
 
 
