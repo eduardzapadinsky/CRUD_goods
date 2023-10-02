@@ -1,3 +1,7 @@
+"""
+URL configuration for goods app.
+"""
+
 from django.urls import path
 
 from . import views

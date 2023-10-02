@@ -2,6 +2,10 @@ from django.db import models
 
 
 class Category(models.Model):
+    """
+    Model representing a category for products.
+    """
+
     category_name = models.CharField(max_length=255)
 
     def __str__(self):
@@ -9,6 +13,10 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    """
+    Model representing a product.
+    """
+
     name = models.CharField(max_length=255)
     photo = models.URLField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)

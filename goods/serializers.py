@@ -3,12 +3,20 @@ from .models import Product, Category
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Category model.
+    """
+
     class Meta:
         model = Category
         fields = '__all__'
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    """
+    Serializer for the Product model.
+    """
+
     category = CategorySerializer()  # Serialize the category field as nested data
 
     class Meta:
