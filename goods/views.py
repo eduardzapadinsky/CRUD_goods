@@ -1,6 +1,7 @@
+from rest_framework.response import Response
+from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
-from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Product, Category
 from .serializers import ProductSerializer, CategorySerializer
@@ -69,3 +70,27 @@ class ProductByCategoryView(BaseAPIView, generics.ListAPIView):
             return Product.objects.filter(category=category)
         except ObjectDoesNotExist:
             return Product.objects.none()
+
+
+class BaseCategoryQueryView(BaseAPIView):
+    category_field = None  # Subclasses should define this field (e.g., 'offer_of_the_month', 'availability', 'pickup')
+
+    def get_queryset(self):
+        return Product.objects.filter(**{self.category_field: True})
+
+    def get(self, request):
+        products = self.get_queryset()
+        serializer = ProductSerializer(products, many=True)
+        return Response(serializer.data)
+
+
+class OfferOfMonthView(BaseCategoryQueryView):
+    category_field = 'offer_of_the_month'
+
+
+class AvailabilityView(BaseCategoryQueryView):
+    category_field = 'availability'
+
+
+class PickupView(BaseCategoryQueryView):
+    category_field = 'pickup'
