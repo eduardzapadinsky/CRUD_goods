@@ -73,6 +73,10 @@ class ProductByCategoryView(BaseAPIView, generics.ListAPIView):
 
 
 class BaseCategoryQueryView(BaseAPIView):
+    """
+    Base view for querying products by a specific category.
+    """
+
     category_field = None  # Subclasses should define this field (e.g., 'offer_of_the_month', 'availability', 'pickup')
 
     def get_queryset(self):
