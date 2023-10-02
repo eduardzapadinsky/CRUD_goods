@@ -30,7 +30,7 @@ Before you begin, ensure you have the following requirements installed:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/yourusername/CRUD_goods.git
+   git clone https://github.com/eduardzapadinsky/CRUD_goods.git
    ```
 
 2. Navigate to the project directory:
@@ -82,8 +82,6 @@ Before you begin, ensure you have the following requirements installed:
    ```bash
    python manage.py runserver
    ```
-
-9. Access the admin interface at `http://localhost:8000/admin/` and log in using the superuser credentials.
 
 ## Usage
 
