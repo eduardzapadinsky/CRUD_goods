@@ -89,12 +89,24 @@ class BaseCategoryQueryView(BaseAPIView):
 
 
 class OfferOfMonthView(BaseCategoryQueryView):
+    """
+    View for querying products that are marked as 'Offer of the month'
+    """
+
     category_field = 'offer_of_the_month'
 
 
 class AvailabilityView(BaseCategoryQueryView):
+    """
+    View for querying available products
+    """
+
     category_field = 'availability'
 
 
 class PickupView(BaseCategoryQueryView):
+    """
+    View for querying products available for pickup
+    """
+
     category_field = 'pickup'
