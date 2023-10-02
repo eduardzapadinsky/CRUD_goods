@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Product, Category
+from .models import Product, Category, Description
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -18,6 +18,7 @@ class ProductSerializer(serializers.ModelSerializer):
     """
 
     category = CategorySerializer()  # Serialize the category field as nested data
+    description = serializers.ListField(child=serializers.CharField(), required=False)  # Allow a list of descriptions
 
     class Meta:
         model = Product
@@ -26,6 +27,7 @@ class ProductSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         # Extract the nested Category data
         category_data = validated_data.pop('category')
+        descriptions_data = validated_data.pop('description', [])
 
         # Create or retrieve the Category object
         category, _ = Category.objects.get_or_create(**category_data)
@@ -33,18 +35,21 @@ class ProductSerializer(serializers.ModelSerializer):
         # Create the Product with the associated Category
         product = Product.objects.create(category=category, **validated_data)
 
+        # Create Description instances and associate them with the Product
+        for description_text in descriptions_data:
+            Description.objects.create(product=product, text=description_text)
+
         return product
 
-    def update(self, instance, validated_data):
-        category_data = validated_data.pop('category', None)
+    def to_representation(self, instance):
+        """
+        Serialize the Product model instance to include the description field.
+        """
 
-        # Update fields of the Product instance with the validated data
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
+        representation = super(ProductSerializer, self).to_representation(instance)
 
-        if category_data:
-            category, _ = Category.objects.get_or_create(**category_data)
-            instance.category = category
+        # Fetch and include the descriptions associated with the product
+        descriptions = instance.description_set.values_list('text', flat=True)
+        representation['description'] = descriptions
 
-        instance.save()
-        return instance
+        return representation

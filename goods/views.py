@@ -2,8 +2,9 @@ from rest_framework.response import Response
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
+from rest_framework import status
 
-from .models import Product, Category
+from .models import Product, Category, Description
 from .serializers import ProductSerializer, CategorySerializer
 
 
@@ -40,6 +41,25 @@ class ProductListView(BaseAPIView, generics.ListCreateAPIView):
 
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
+
+    # def create(self, request, *args, **kwargs):
+    #     # Extract the description data from the request data
+    #     description_data = request.data.pop('description', [])
+    #
+    #     serializer = self.get_serializer(data=request.data)
+    #     serializer.is_valid(raise_exception=True)
+    #     self.perform_create(serializer, description_data)
+    #
+    #     headers = self.get_success_headers(serializer.data)
+    #     return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+    #
+    # def perform_create(self, serializer, description_data):
+    #     # Create the Product instance
+    #     product = serializer.save()
+    #
+    #     # Create Description instances and associate them with the Product
+    #     for description_text in description_data:
+    #         Description.objects.create(product=product, text=description_text)
 
 
 class ProductDetailView(BaseAPIView, generics.RetrieveUpdateDestroyAPIView):

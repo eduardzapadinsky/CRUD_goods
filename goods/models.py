@@ -23,8 +23,12 @@ class Product(models.Model):
     offer_of_the_month = models.BooleanField(default=False)
     availability = models.BooleanField(default=False)
     pickup = models.BooleanField(default=False)
-    description = models.TextField()
     price = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
         return self.name
+
+
+class Description(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    text = models.TextField()
